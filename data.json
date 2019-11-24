@@ -1,0 +1,94 @@
+{
+  "articles": [
+    {
+      "id": 1,
+      "author": "CALVIN WOODWARD and HOPE YEN",
+      "title": "AP FACT CHECK: Trump and his so-they-say accusations",
+      "description": "WASHINGTON (AP) — President Donald Trump has a sophisticated machine at his disposal for gathering and analyzing information: the U.S. government.But many of his inflammatory statements...",
+      "url": "https://apnews.com/b1728f3c859345b4adce7a3aa274a276",
+      "urlToImage": "",
+      "publishedAt": "2019-11-21T21:07:04Z"
+    },
+    {
+      "id": 2,
+      "author": "BY CARA ANNA",
+      "title": "Iconic singer hopes to close financing gap for African women",
+      "description": "JOHANNESBURG (AP) — The insect-eaten money fluttered in pieces to the floor. For global music star Angelique Kidjo, that image of her grandmother having to use a closet as a bank is driving her...",
+      "url": "https://apnews.com/58a726a8005643a9a865432918d64a2a",
+      "urlToImage": "",
+      "publishedAt": "2019-11-20T09:07:07Z"
+    },
+    {
+      "id": 3,
+      "author": "ZEKE MILLER",
+      "title": "Pence works to reassure US allies in unannounced Iraq trip",
+      "description": "IRBIL, Iraq (AP) — Vice President Mike Pence worked to reassure the United States’ Kurdish allies in an unannounced trip to Iraq on Saturday, the highest-level American trip since President Donald...",
+      "url": "https://apnews.com/effb7b53dac54c12ba852ef8e5633691",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/8ea05fbe186643e59ab285a7987d9594/2500.jpeg",
+      "publishedAt": "2019-11-23T12:43:21Z"
+    },
+    {
+      "id": 4,
+      "author": "MICHAEL R. SISAK",
+      "title": "Feds fight back as Epstein death conspiracy theories swirl",
+      "description": "NEW YORK (AP) — At another time in history, the indictment of two jail guards responsible for monitoring Jeffrey Epstein the night he killed himself might have served as an emphatic rebuttal to...",
+      "url": "https://apnews.com/a1ef16a612bd4130a18479c01bd72586",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/24e2feff1d7746f9a040d5ee3005eebe/3000.jpeg",
+      "publishedAt": "2019-11-23T11:18:44Z"
+    },
+    {
+      "id": 5,
+      "author": "STEVE PEOPLES",
+      "title": "Bloomberg vows to refuse donations, presidential salary",
+      "description": "NEW YORK (AP) — Michael Bloomberg will not accept political donations if he runs for president and he will not take a salary if he wins, according to senior aides who offered new details on...",
+      "url": "https://apnews.com/faeb0397465948cea256367867c7efb1",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/8b281353628549c1bf1e1a2fe56940bc/3000.jpeg",
+      "publishedAt": "2019-11-23T16:16:56Z"
+    },
+    {
+      "id": 6,
+      "author": "GREGORY KATZ",
+      "title": "Prince Andrew’s troubles not over despite change in status",
+      "description": "LONDON (AP) — Britain’s Prince Andrew continues to face many hurdles despite his decision to step down from royal duties because of his friendship with billionaire sex offender Jeffrey...",
+      "url": "https://apnews.com/80bd4f6359174723991e30cfc86367d4",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/8b668a67c9ec4b0b8ee1946373ee70d2/3000.jpeg",
+      "publishedAt": "2019-11-23T15:37:38Z"
+    },
+    {
+      "id": 7,
+      "author": "MIKE SCHNEIDER",
+      "title": "5 states resisting creation of panels to promote the census",
+      "description": "ORLANDO, Fla. (AP) — With billions in federal aid and seats in Congress at stake, some states are dragging their feet in carrying out one of the Census Bureau’s chief recommendations for making...",
+      "url": "https://apnews.com/7ec3a4af1a364f2bac4598fbbeff2f75",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/05bcf6d5821a412792b2de60cad30307/3000.jpeg",
+      "publishedAt": "2019-11-23T13:56:41Z"
+    },
+    {
+      "id": 8,
+      "author": "MICHELLE R. SMITH",
+      "title": "‘A serious-minded kid:’ Pete Buttigieg aimed high early",
+      "description": "SOUTH BEND, Ind. (AP) — It was a running joke in his AP U.S. history class at Saint Joseph High School: Would Peter Buttigieg — the smartest kid in class, language whiz and devotee of John F....",
+      "url": "https://apnews.com/47fc3e167cd64488b16890c8973bb208",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/f49fb02d579548e1bf1e62fbc83fd61d/2536.jpeg",
+      "publishedAt": "2019-11-23T12:43:05Z"
+    },
+    {
+      "id": 9,
+      "author": "ANGELA CHARLTON and THIBAULT CAMUS",
+      "title": "When domestic violence kills: Mass women’s protest in Paris",
+      "description": "PARIS (AP) — Tens of thousands of protesters marched through Paris on Saturday to demand a national wake-up call and more government investment to prevent deadly domestic violence against women, a...",
+      "url": "https://apnews.com/d064d3ae113c405f98a77a89099eb909",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/e4cec97f18994565a35bf223bc34853e/3000.jpeg",
+      "publishedAt": "2019-11-23T08:53:44Z"
+    },
+    {
+      "id": 10,
+      "author": "BY SAMY MAGDY",
+      "title": "Egypt unveils animal mummies of lion cubs, crocodiles, birds",
+      "description": "SAQQARA, Egypt (AP) — Egypt's Ministry of Antiquities on Saturday revealed details on recently discovered animal mummies, saying they include two lion cubs as well as several crocodiles, birds and...",
+      "url": "https://apnews.com/9e4dd8a0667d499d89d0ba70b07ba1d6",
+      "urlToImage": "https://storage.googleapis.com/afs-prod/media/88e45517a5ad47c4b5865a4ee370df7a/3000.jpeg",
+      "publishedAt": "2019-11-23T11:43:37Z"
+    }
+  ]
+}
