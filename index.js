@@ -1,18 +1,12 @@
 import express from 'express';
-import fs from 'fs';
+import { articlesRouter } from './routes/index.js';
 
 const app = express();
 
-app.get('/news', (req, res) => {
-  res.set('Content-Type', 'application/json');
-  fs.readFile('./data.json', 'utf8', (err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      res.send(data);
-    }
-  });
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+app.use('/api/articles', articlesRouter);
 
 app.listen(3000,
   () => console.log('Application started on port 3000'));
