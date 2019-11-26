@@ -11,25 +11,23 @@ const __dirname = dirname(__filename);
 const articlesRouter = express.Router();
 const articlesDataPath = path.join(__dirname, '..', '..', 'data', 'data.json');
 
-articlesRouter.get('/', (req, res) => {
+articlesRouter.get('/', (req, res, next) => {
   res.set('Content-Type', 'application/json');
   fs.readFile(articlesDataPath, 'utf8', (err, data) => {
     if (err) {
-      console.log(err);
-      return;
-    }
+      return next(new Error('UNABLE TO READ FILE', __filename))
+    };
 
     res.send(data);
   });
 });
 
-articlesRouter.get('/:id', (req, res) => {
+articlesRouter.get('/:id', (req, res, next) => {
   res.set('Content-Type', 'application/json');
   fs.readFile(articlesDataPath, 'utf8', (err, data) => {
     if (err) {
-      console.log(err);
-      return;
-    }
+      return next(new Error('UNABLE TO READ FILE', __filename))
+    };
 
     const parsedData = JSON.parse(data);
     const requestedArticle = parsedData.find((article) => article.id === +req.params.id);
@@ -42,7 +40,7 @@ articlesRouter.get('/:id', (req, res) => {
   });
 })
 
-articlesRouter.post('/', (req, res) => {
+articlesRouter.post('/', (req, res, next) => {
   const newArticle = {
     id: uuid.v4(),
     author: req.body.author,
@@ -55,24 +53,27 @@ articlesRouter.post('/', (req, res) => {
 
   fs.readFile(articlesDataPath, 'utf8', (err, data) => {
     if (err) {
-      console.log(err);
-      return;
-    }
+      return next(new Error('UNABLE TO READ FILE', __filename))
+    };
+
     const updatedArticles = [...JSON.parse(data), newArticle];
 
     fs.writeFile(articlesDataPath, JSON.stringify(updatedArticles), (err) => {
-      if (err) throw err;
+      if (err) {
+        return next(new Error('UNABLE TO WRITE TO FILE', __filename))
+      };
+
       res.status(200).json({ message: 'Article added!'})
     });
   });
 })
 
-articlesRouter.put('/:id', (req, res) => {
+articlesRouter.put('/:id', (req, res, next) => {
   fs.readFile(articlesDataPath, 'utf8', (err, data) => {
     if (err) {
-      console.log(err);
-      return;
-    }
+      return next(new Error('UNABLE TO READ FILE', __filename))
+    };
+
 
     const parsedData = JSON.parse(data);
     let requestedArticleIndex = parsedData.findIndex((article) => article.id === +req.params.id);
@@ -81,7 +82,10 @@ articlesRouter.put('/:id', (req, res) => {
       parsedData[requestedArticleIndex] = {...parsedData[requestedArticleIndex], ...req.body};
 
       fs.writeFile(articlesDataPath, JSON.stringify(parsedData), (err) => {
-        if (err) throw err;
+        if (err) {
+          return next(new Error('UNABLE TO WRITE TO FILE', __filename))
+        };
+
         res.status(200).json({ message: 'Article updated!'})
       });
     } else {
@@ -90,12 +94,11 @@ articlesRouter.put('/:id', (req, res) => {
   });
 })
 
-articlesRouter.delete('/:id', (req, res) => {
+articlesRouter.delete('/:id', (req, res, next) => {
   fs.readFile(articlesDataPath, 'utf8', (err, data) => {
     if (err) {
-      console.log(err);
-      return;
-    }
+      return next(new Error('UNABLE TO READ FILE', __filename))
+    };
 
     const parsedData = JSON.parse(data);
     const requestedArticleIndex = parsedData.findIndex((article) => article.id === +req.params.id);
@@ -104,7 +107,10 @@ articlesRouter.delete('/:id', (req, res) => {
       parsedData.splice(requestedArticleIndex, 1);
 
       fs.writeFile(articlesDataPath, JSON.stringify(parsedData), (err) => {
-        if (err) throw err;
+        if (err) {
+          return next(new Error('UNABLE TO WRITE TO FILE', __filename))
+        };
+
         res.status(200).json({ message: 'Article deleted!'})
       });
     } else {
