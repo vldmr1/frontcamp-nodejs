@@ -1,7 +1,7 @@
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import { Article } from '../../../components/index.js';
-import fs, { read, write } from 'fs';
+import fs from 'fs';
 import path from 'path';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -28,91 +28,98 @@ const writeDataToFile = (req, res, next) => {
 
     next();
   });
-}
+};
+
+const processGetArticleReq = (req, res, next) => {
+  const parsedData = JSON.parse(req.data);
+  const requestedArticle = parsedData.find((article) => article.id === +req.params.id);
+
+  if (requestedArticle) {
+    req.message = requestedArticle;
+    next();
+  } else {
+    res.status(400).json({ message: 'Article not found!'});
+  }
+};
+
+const processCreateArticleReq = (req, res, next) => {
+  const {
+    author,
+    title,
+    description,
+    url,
+    urlToImage,
+    publishedAt,
+  } = req.body;
+
+  const newArticle = new Article(author, title, description, url, urlToImage, publishedAt);
+  req.updatedArticles = [...JSON.parse(req.data), newArticle];
+  req.message = { message: 'Article added!'};
+  next();
+};
+
+const processUpdateArticleReq = (req, res, next) => {
+  const parsedData = JSON.parse(req.data);
+  const requestedArticleIndex = parsedData.findIndex((article) => article.id === +req.params.id);
+
+  if (requestedArticleIndex !== -1) {
+    parsedData[requestedArticleIndex] = {...parsedData[requestedArticleIndex], ...req.body};
+    req.updatedArticles = parsedData;
+    req.message = { message: 'Article updated!'};
+    next();
+  } else {
+    res.status(400).json({ message: 'Article not found!'});
+  }
+};
+
+const processDeleteArticleReq = (req, res, next) => {
+  const parsedData = JSON.parse(req.data);
+  const requestedArticleIndex = parsedData.findIndex((article) => article.id === +req.params.id);
+
+  if (requestedArticleIndex !== -1) {
+    parsedData.splice(requestedArticleIndex, 1);
+    req.updatedArticles = parsedData;
+    req.message = { message: 'Article deleted!'};
+    next();
+  } else {
+    res.status(400).json({ message: 'Article not found!'});
+  }
+};
+
+const sendDataToClient = (req, res) => {
+  res.status(200).send(req.message);
+};
 
 export const getArticlesListHandler = [
   readArticlesFromFile,
   (req, res) => {
     res.status(200).send(req.data);
   }
-]
+];
 
 export const getArticleHandler = [
   readArticlesFromFile,
-  (req, res, next) => {
-    const parsedData = JSON.parse(req.data);
-    const requestedArticle = parsedData.find((article) => article.id === +req.params.id);
-
-    if (requestedArticle) {
-      req.requestedArticle = requestedArticle;
-      next();
-    } else {
-      res.status(400).json({ message: 'Article not found!'});
-    }
-  },
-  (req, res) => {
-    res.status(200).json(req.requestedArticle);
-  }
-]
+  processGetArticleReq,
+  sendDataToClient,
+];
 
 export const createArticleHandler = [
   readArticlesFromFile,
-  (req, res, next) => {
-    const {
-      author,
-      title,
-      description,
-      url,
-      urlToImage,
-      publishedAt,
-    } = req.body;
-
-    const newArticle = new Article(author, title, description, url, urlToImage, publishedAt);
-    req.updatedArticles = [...JSON.parse(req.data), newArticle];
-    next();
-  },
+  processCreateArticleReq,
   writeDataToFile,
-  (req, res) => {
-    res.status(200).json({ message: 'Article added!'});
-  }
-]
+  sendDataToClient
+];
 
 export const updateArticleHandler = [
   readArticlesFromFile,
-  (req, res, next) => {
-    const parsedData = JSON.parse(req.data);
-    const requestedArticleIndex = parsedData.findIndex((article) => article.id === +req.params.id);
-
-    if (requestedArticleIndex !== -1) {
-      parsedData[requestedArticleIndex] = {...parsedData[requestedArticleIndex], ...req.body};
-      req.updatedArticles = parsedData;
-      next();
-    } else {
-      res.status(400).json({ message: 'Article not found!'});
-    }
-  },
+  processUpdateArticleReq,
   writeDataToFile,
-  (req, res) => {
-    res.status(200).json({ message: 'Article updated!'});
-  }
-]
+  sendDataToClient
+];
 
 export const deleteArticleHandler = [
   readArticlesFromFile,
-  (req, res, next) => {
-    const parsedData = JSON.parse(req.data);
-    const requestedArticleIndex = parsedData.findIndex((article) => article.id === +req.params.id);
-
-    if (requestedArticleIndex !== -1) {
-      parsedData.splice(requestedArticleIndex, 1);
-      req.updatedArticles = parsedData;
-      next();
-    } else {
-      res.status(400).json({ message: 'Article not found!'});
-    }
-  },
+  processDeleteArticleReq,
   writeDataToFile,
-  (req, res) => {
-    res.status(200).json({ message: 'Article deleted!'});
-  }
-]
+  sendDataToClient
+];
