@@ -1,1 +1,1 @@
-export { articlesRouter } from './api/articlesRouter.js';
+export { router } from './api/articles/router.js';
