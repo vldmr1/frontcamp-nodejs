@@ -1,7 +1,12 @@
 import express from 'express';
-import { router as articlesRouter } from './routes/index.js';
+import mongoose from 'mongoose';
+import { DB_URL } from './constants/constants.js';
+import { router as articlesRouter } from './api/routes/index.js';
 import { logger } from './middleware/index.js';
 
+mongoose.connect(
+  `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PW}${DB_URL}`
+);
 const app = express();
 
 app.use(logger);
