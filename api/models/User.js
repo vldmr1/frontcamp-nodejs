@@ -6,15 +6,21 @@ const userSchema = new Schema({
   _id: mongoose.Schema.Types.ObjectId,
   userName: {
     type: String,
-    required: true,
+    required: false,
   },
   email: {
     type: String,
-    required: true,
+    required: false,
   },
   password: {
     type: String,
-    required: true,
+    required: false,
+  },
+  facebook: {
+    id: String,
+    token: String,
+    email: String,
+    name: String
   },
 });
 

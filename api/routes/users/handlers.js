@@ -11,7 +11,7 @@ const addNewUser = (req, res, next) => {
         const err = new Error(`${email} is already registered`);
         err.status = 500;
         next(err);
-      }
+      };
 
       new User({
         _id: new mongoose.Types.ObjectId(),
@@ -42,7 +42,6 @@ const loginUser = (req, res, next) => {
   passport.authenticate('local', (err, user) => {
     if (err) { return next(err); }
     if (!user) {
-      console.log()
       return res.redirect('api/users/login');
     }
     req.logIn(user, (err) => {
@@ -56,8 +55,12 @@ const getLoginPage = (req, res, next) => {
   req.data = {
     message: 'Please log in!',
   };
-  next()
+  next();
 };
+
+export const facebookCallback = (req, res, next) => {
+  res.redirect('/api/articles');
+}
 
 const sendDataToClient = (req, res) =>
   res
@@ -76,4 +79,9 @@ export const loginUserHandler = [
 export const getLoginPageHandler = [
   getLoginPage,
   sendDataToClient
+];
+
+export const fBcallbackHandler = [
+  passport.authenticate('facebook', { failureRedirect: 'api/users/login' }),
+  facebookCallback
 ]

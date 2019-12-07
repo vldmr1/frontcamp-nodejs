@@ -6,7 +6,8 @@ import { DB_URL } from './constants/constants.js';
 import { logger } from './middleware/index.js';
 import {
   articlesRouter,
-  usersRouter
+  usersRouter,
+  adminRouter,
 } from './api/routes/index.js';
 import './config/passport.js';
 
@@ -37,6 +38,7 @@ app.use(passport.session());
 
 app.use('/api/articles', articlesRouter);
 app.use('/api/users', usersRouter);
+app.use('/admin', adminRouter);
 app.use((req, res, next) => {
   const err = new Error('ADDRESS NOT FOUND!')
   err.status = 404;
@@ -46,7 +48,6 @@ app.use((req, res, next) => {
 app.use((err, req, res, next) => {
   res.status(err.status || 500);
   res.json({ message: err.message });
-  console.log(err);
 });
 
 app.listen(3000,
