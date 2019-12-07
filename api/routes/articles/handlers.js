@@ -1,11 +1,13 @@
-import Article from '../../models/article.js';
 import mongoose from 'mongoose';
+import { Article } from '../../models/index.js';
+import { checkAuthentication } from '../../../middleware/index.js';
 
 const processGetArticlesListReq = (req, res, next) => {
   Article
     .find()
+    .select('_id author title description url publishedAt')
     .then(doc => {
-      res.status(200)
+      res.status(200);
       req.data = doc;
       next();
     })
@@ -18,21 +20,15 @@ const processGetArticlesListReq = (req, res, next) => {
 
 const processGetArticleReq = (req, res, next) => {
   Article
-    .find({ id: req.params.id })
+    .findById(req.params.id)
     .then(doc => {
-      if (!doc.length) {
-        const err = new Error(`No article with id of ${req.params.id}`);
-        err.status = 400;
-        next(err);
-      }
-
       res.status(200)
       req.data = doc;
       next();
     })
     .catch(() => {
-      const err = new Error('Error processing request');
-      err.status = 500;
+      const err = new Error(`Error processing GET request for ID ${req.params.id}`);
+      err.status = 404;
       next(err);
     });
 };
@@ -63,7 +59,7 @@ const processCreateArticleReq = (req, res, next) => {
 const processUpdateArticleReq = (req, res, next) => {
   Article
     .update(
-      { id: req.params.id },
+      { _id: req.params.id },
       { $set: {...req.body} },
     )
     .then(response => {
@@ -125,16 +121,19 @@ export const getArticleHandler = [
 ];
 
 export const createArticleHandler = [
+  checkAuthentication,
   processCreateArticleReq,
   sendDataToClient
 ];
 
 export const updateArticleHandler = [
+  checkAuthentication,
   processUpdateArticleReq,
   sendDataToClient
 ];
 
 export const deleteArticleHandler = [
+  checkAuthentication,
   processDeleteArticleReq,
   sendDataToClient
 ];

@@ -1,2 +1,2 @@
-export const DB_URL = '@frontcamp-project-jjubl.mongodb.net/atlas-sandbox?retryWrites=true&w=majority';
+export const DB_URL = '@frontcamp-project-jjubl.mongodb.net/frontcamp?retryWrites=true&w=majority';
 

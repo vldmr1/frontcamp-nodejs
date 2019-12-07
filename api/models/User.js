@@ -2,22 +2,24 @@ import mongoose from 'mongoose';
 
 const { Schema } = mongoose;
 
-const articleSchema = new Schema({
+const userSchema = new Schema({
   _id: mongoose.Schema.Types.ObjectId,
-  author: {
+  userName: {
     type: String,
     required: true,
   },
-  title: {
+  email: {
     type: String,
     required: true,
   },
-  url: {
+  password: {
     type: String,
     required: true,
   },
-  description: String,
-  publishedAt: String
 });
 
-export const Article = mongoose.model('Article', articleSchema);
+userSchema.methods.verifyPassword = function(password) {
+  return this.password === password;
+}
+
+export const User = mongoose.model('User', userSchema);
