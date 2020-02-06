@@ -5,7 +5,7 @@ import { checkAuthentication } from '../../../middleware/index.js';
 const processGetArticlesListReq = (req, res, next) => {
   Article
     .find()
-    .select('_id author title description url publishedAt')
+    .select('_id source author title description url urlToImage publishedAt content')
     .then(doc => {
       res.status(200);
       req.data = doc;
@@ -48,7 +48,8 @@ const processCreateArticleReq = (req, res, next) => {
       };
       next();
     })
-    .catch(() => {
+    .catch((error) => {
+      console.log(error);
       const err = new Error('Failed to load article');
       err.status = 500;
       next(err);
@@ -84,7 +85,7 @@ const processUpdateArticleReq = (req, res, next) => {
 
 const processDeleteArticleReq = (req, res, next) => {
   Article
-    .remove({ id: req.params.id })
+    .remove({ _id: req.params.id })
     .then(response => {
       if (!response.deletedCount) {
         const err = new Error(`No article with id of ${req.params.id}`);
