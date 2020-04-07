@@ -1,4 +1,5 @@
 import express from 'express';
+
 import {
   getArticlesListHandler,
   getArticleHandler,
@@ -12,5 +13,5 @@ export const router = express.Router();
 router.get('/', getArticlesListHandler);
 router.get('/:id', getArticleHandler);
 router.post('/', createArticleHandler);
-router.put('/:id', updateArticleHandler);
+router.patch('/:id', updateArticleHandler);
 router.delete('/:id', deleteArticleHandler);
